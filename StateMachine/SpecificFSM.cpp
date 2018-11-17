@@ -17,7 +17,6 @@ void SpecificFSM::ThreadFunction(SpecificFSM *specificFSM)
 
 SpecificFSM::SpecificFSM()
 {
-    eventQueue = new queue<GenericState::event_t>;
     stateA = new StateA();
     stateB = new StateB();
     stateC = new StateC();
@@ -34,7 +33,6 @@ SpecificFSM::~SpecificFSM()
 {
     stopThread = true;
     timeoutThread->join();
-    delete eventQueue;
     
     delete stateA;
     delete stateB;
@@ -42,24 +40,11 @@ SpecificFSM::~SpecificFSM()
     delete timeoutThread;
 }
 
-void SpecificFSM::Process()
-{
-    if (eventQueue->empty())
-        return;
-
-    GenericState::event_t evt = eventQueue->front();
-    if (currentState != NULL)
-        if (currentState->Update(this, &evt))
-            eventQueue->pop();
-}
-
-void SpecificFSM::PostToQueue(GenericState::event_t event)
-{
-    eventQueue->push(event);
-}
 // ================= StateA ================= 
 SpecificFSM::StateA::StateA()
 {
+    EntryEnable(true);
+    ExitEnable(true);
 }
 
 SpecificFSM::StateA::~StateA()
@@ -154,6 +139,7 @@ void SpecificFSM::StateB::SetTransistionStates(StateC * stateC)
 // ================= StateC ================= 
 SpecificFSM::StateC::StateC()
 {
+    ExitEnable(true);
 }
 
 SpecificFSM::StateC::~StateC()
