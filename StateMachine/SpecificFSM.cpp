@@ -106,7 +106,7 @@ void SpecificFSM::StateB::OnEntry()
     cout << "StateB::OnEntry" << endl;
 }
 
-bool SpecificFSM::StateB::Update(FSM * fsm, event_t * event)
+bool SpecificFSM::StateB::Update(FSM *fsm, event_t *event)
 {
     cout << "StateC::Update" << endl;
     updateCnt++;
@@ -131,7 +131,7 @@ void SpecificFSM::StateB::OnExit()
     cout << "StateB::OnExit" << endl;
 }
 
-void SpecificFSM::StateB::SetTransistionStates(StateC * stateC)
+void SpecificFSM::StateB::SetTransistionStates(StateC *stateC)
 {
     this->stateC = stateC;
 }
