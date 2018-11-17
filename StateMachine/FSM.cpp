@@ -16,7 +16,7 @@ void FSM::GoToState(GenericState *state)
     if (currentState != NULL)
     {
         currentState->OnExit();
-        currentState = state;
-        currentState->OnEntry();
     }
+    currentState = state;
+    currentState->OnEntry();
 }

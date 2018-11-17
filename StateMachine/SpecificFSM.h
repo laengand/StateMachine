@@ -1,9 +1,14 @@
 #pragma once
 
 #include <queue>
+#include <thread>
 #include "FSM.h"
 class SpecificFSM : FSM
 {
+    static void ThreadFunction(SpecificFSM *specificFSM);
+    std::thread *timeoutThread;
+    bool stopThread;
+    bool IsThreadStopped() { return stopThread; };
     class StateA;
     class StateB;
     class StateC;
@@ -53,6 +58,9 @@ public:
     typedef enum e_eventSignal
     {
         EVENTSIGNAL_TIMEOUT = 0,
+        EVENTSIGNAL_STATEA = 1,
+        EVENTSIGNAL_STATEB = 2,
+        EVENTSIGNAL_STATEC = 3,
     }eventSignal_t;
     SpecificFSM();
     ~SpecificFSM();
