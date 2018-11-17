@@ -2,11 +2,12 @@
 #include "GenericState.h"
 class FSM
 {
-	GenericState* currentState;
+protected:
+    GenericState *currentState;
 public:
-	FSM();
-	~FSM();
-	void GoToState(GenericState *state);
+    FSM();
+    ~FSM();
+    void GoToState(GenericState *state);
 
 };
 

@@ -13,10 +13,10 @@ FSM::~FSM()
 
 void FSM::GoToState(GenericState *state)
 {
-	if (currentState != NULL)
-	{
-		currentState->OnExit();
-		currentState = state;
-		currentState->OnEntry();
-	}
+    if (currentState != NULL)
+    {
+        currentState->OnExit();
+        currentState = state;
+        currentState->OnEntry();
+    }
 }
