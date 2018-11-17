@@ -108,7 +108,7 @@ void SpecificFSM::StateB::OnEntry()
 
 bool SpecificFSM::StateB::Update(FSM *fsm, event_t *event)
 {
-    cout << "StateC::Update" << endl;
+    cout << "StateB::Update" << endl;
     updateCnt++;
     switch (event->signal)
     {

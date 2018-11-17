@@ -24,20 +24,22 @@ void GenericState::OnExit()
     cout << "GenericState::OnExit" << endl;
 }
 
-void GenericState::s_OnEntry(GenericState * state)
+bool GenericState::IsEntryEnabled()
 {
-    state->OnEntry();
-}
-void GenericState::s_OnExit(GenericState * state)
-{
-    state->OnExit();
-}
-void GenericState::EntryEnable(bool enable)
-{
-    onEntry = enable ? &s_OnEntry : NULL;
+    return entryEnable;
 }
 
-void GenericState::ExitEnable(bool enable)
+inline void GenericState::EntryEnable(bool enable)
 {
-    onExit = enable ? &s_OnExit : NULL;;
+    entryEnable = enable;
+}
+
+bool GenericState::IsExitEnabled()
+{
+    return exitEnable;
+}
+
+inline void GenericState::ExitEnable(bool enable)
+{
+    exitEnable = enable;
 }

@@ -17,12 +17,12 @@ void FSM::GoToState(GenericState *state)
 {
     if (currentState != NULL)
     {
-        if (currentState->onExit != NULL)
-            currentState->onExit(currentState);
+        if (currentState->IsExitEnabled())
+            currentState->OnExit();
     }
     currentState = state;
-    if (currentState->onEntry != NULL)
-        currentState->onEntry(currentState);
+    if (currentState->IsEntryEnabled())
+        currentState->OnEntry();
 }
 void FSM::Process()
 {
