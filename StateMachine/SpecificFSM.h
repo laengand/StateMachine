@@ -1,9 +1,8 @@
 #pragma once
 
-#include <queue>
 #include <thread>
 #include "FSM.h"
-class SpecificFSM : FSM
+class SpecificFSM : public FSM
 {
     static void ThreadFunction(SpecificFSM *specificFSM);
     std::thread *timeoutThread;
@@ -49,7 +48,7 @@ class SpecificFSM : FSM
         void SetTransistionStates(StateA *stateA);
     };
     
-    std::queue<GenericState::event_t> *eventQueue;
+
     StateA *stateA;
     StateB *stateB;
     StateC *stateC;
@@ -64,7 +63,6 @@ public:
     }eventSignal_t;
     SpecificFSM();
     ~SpecificFSM();
-    void Process();
-    void PostToQueue(GenericState::event_t event);
+
 };
 
