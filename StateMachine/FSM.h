@@ -10,9 +10,11 @@ protected:
 public:
     FSM();
     ~FSM();
-    void Process();
-    void PostToQueue(GenericState::event_t event);
-    void GoToState(GenericState *state);
+    virtual void Process();
+    virtual GenericState::event_t PeekQueue(void);
+    virtual void PopQueue(void);
+    virtual void PostToQueue(GenericState::event_t event);
+    virtual void GoToState(GenericState *state);
 
 };
 

@@ -1,6 +1,7 @@
 #pragma once
 
 #include <thread>
+#include <mutex>
 #include "FSM.h"
 class SpecificFSM : public FSM
 {
@@ -8,13 +9,17 @@ class SpecificFSM : public FSM
     std::thread *timeoutThread;
     bool stopThread;
     bool IsThreadStopped() { return stopThread; };
+    std::mutex mtx;
     class StateA;
     class StateB;
     class StateC;
+    class StateIdle;
+    
     class StateA : public GenericState
     {
         StateB *stateB;
         StateC *stateC;
+        StateIdle *stateIdle;
         int updateCnt;
     public:
         StateA();
@@ -22,12 +27,13 @@ class SpecificFSM : public FSM
         void OnEntry();
         bool Update(FSM *fsm, event_t * event);
         void OnExit();
-        void SetTransistionStates(StateB *stateB, StateC *stateC);
+        void SetTransistionStates(StateB *stateB, StateC *stateC, StateIdle *stateIdle);
     };
 
     class StateB : public GenericState
     {
         StateC *stateC;
+        StateIdle *stateIdle;
         int updateCnt;
     public:
         StateB();
@@ -35,34 +41,54 @@ class SpecificFSM : public FSM
         void OnEntry();
         bool Update(FSM *fsm, event_t * event);
         void OnExit();
-        void SetTransistionStates(StateC *stateC);
+        void SetTransistionStates(StateC *stateC, StateIdle *stateIdle);
     };
     class StateC : public GenericState
     {
         StateA *stateA;
+        StateIdle *stateIdle;
         int updateCnt;
     public:
         StateC();
         ~StateC();
         bool Update(FSM *fsm, event_t * event);
-        void SetTransistionStates(StateA *stateA);
+        void OnExit();
+        void SetTransistionStates(StateA *stateA, StateIdle *stateIdle);
     };
     
+    class StateIdle : public GenericState
+    {
+      StateA *stateA;
+      StateB *stateB;
+      StateC *stateC;
+      int updateCnt;
+    public:
+      StateIdle();
+      ~StateIdle();
+      bool Update(FSM *fsm, event_t * event);
+      void SetTransistionStates(StateA *stateA, StateB *stateB, StateC *stateC);
+    };
+
 
     StateA *stateA;
     StateB *stateB;
     StateC *stateC;
+    StateIdle *stateIdle;
 public:
-
+    
     typedef enum e_eventSignal
     {
         EVENTSIGNAL_TIMEOUT = 0,
         EVENTSIGNAL_STATEA = 1,
         EVENTSIGNAL_STATEB = 2,
         EVENTSIGNAL_STATEC = 3,
+        EVENTSIGNAL_STOP = 4,
     }eventSignal_t;
     SpecificFSM();
     ~SpecificFSM();
+    GenericState::event_t PeekQueue(void);
+    void PopQueue(void);
+    void PostToQueue(GenericState::event_t event);
 
 };
 

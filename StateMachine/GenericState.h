@@ -24,10 +24,10 @@ public:
     virtual void OnEntry();
     virtual bool Update(FSM *fsm, event_t *event) = 0;
     virtual void OnExit();
-    bool IsEntryEnabled();
-    void EntryEnable(bool enable);
-    bool IsExitEnabled();
-    void ExitEnable(bool enable);
+    inline bool IsEntryEnabled() { return entryEnable; }
+    inline void EntryEnable(bool enable) { entryEnable = enable; }
+    inline bool IsExitEnabled() { return exitEnable; }
+    inline void ExitEnable(bool enable) { exitEnable = enable; }
 };
 
 
