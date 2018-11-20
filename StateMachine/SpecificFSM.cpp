@@ -6,13 +6,13 @@
 using namespace std;
 void SpecificFSM::ThreadFunction(SpecificFSM *specificFSM)
 {
-    while (!specificFSM->IsThreadStopped())
-    {
-        Sleep(1000);
-        GenericState::event_t event;
-        event.signal = SpecificFSM::eventSignal_t::EVENTSIGNAL_TIMEOUT;
-        specificFSM->PostToQueue(event);
-    }
+  while (!specificFSM->IsThreadStopped())
+  {
+    Sleep(1000);
+    GenericState::event_t event;
+    event.signal = SpecificFSM::eventSignal_t::EVENTSIGNAL_TIMEOUT;
+    specificFSM->PostToQueue(event);
+  }
 }
 
 GenericState::event_t SpecificFSM::PeekQueue(void)
@@ -36,36 +36,36 @@ void SpecificFSM::PostToQueue(GenericState::event_t event)
 
 SpecificFSM::SpecificFSM()
 {
-    stateA = new StateA();
-    stateB = new StateB();
-    stateC = new StateC();
-    stateIdle = new StateIdle();
-    stateA->SetTransistionStates(stateB, stateC, stateIdle);
-    stateB->SetTransistionStates(stateC, stateIdle);
-    stateC->SetTransistionStates(stateA, stateIdle);
-    stateIdle->SetTransistionStates(stateA, stateB, stateC);
-    stopThread = false;
-    timeoutThread = new thread(&SpecificFSM::ThreadFunction, this);
-    GoToState(stateA);
+  stateA = new StateA();
+  stateB = new StateB();
+  stateC = new StateC();
+  stateIdle = new StateIdle();
+  stateA->SetTransistionStates(stateB, stateC, stateIdle);
+  stateB->SetTransistionStates(stateC, stateIdle);
+  stateC->SetTransistionStates(stateA, stateIdle);
+  stateIdle->SetTransistionStates(stateA, stateB, stateC);
+  stopThread = false;
+  timeoutThread = new thread(&SpecificFSM::ThreadFunction, this);
+  GoToState(stateA);
 }
 
 SpecificFSM::~SpecificFSM()
 {
-    stopThread = true;
-    timeoutThread->join();
-    
-    delete stateA;
-    delete stateB;
-    delete stateC;
-    delete stateIdle;
-    delete timeoutThread;
+  stopThread = true;
+  timeoutThread->join();
+
+  delete stateA;
+  delete stateB;
+  delete stateC;
+  delete stateIdle;
+  delete timeoutThread;
 }
 
 // ================= StateA ================= 
 SpecificFSM::StateA::StateA()
 {
-    EntryEnable(true);
-    ExitEnable(true);
+  EntryEnable(true);
+  ExitEnable(true);
 }
 
 SpecificFSM::StateA::~StateA()
@@ -74,50 +74,50 @@ SpecificFSM::StateA::~StateA()
 
 void SpecificFSM::StateA::OnEntry()
 {
-    cout << "StateA::OnEntry" << endl;
+  cout << "StateA::OnEntry" << endl;
 }
 
 bool SpecificFSM::StateA::Update(FSM *fsm, event_t * event)
 {
-    cout << "StateA::Update" << endl;
-    
-    switch (event->signal)
+  cout << "StateA::Update" << endl;
+
+  switch (event->signal)
+  {
+  case EVENTSIGNAL_TIMEOUT:
+  {
+    updateCnt++;
+    if (updateCnt == 5)
     {
-    case EVENTSIGNAL_TIMEOUT:
+      cout << "   StateA -> StateB" << endl;
+      fsm->GoToState(stateB);
+    }
+    else if (updateCnt == 15)
     {
-        updateCnt++;
-        if (updateCnt == 5)
-        {
-            cout << "   StateA -> StateB" << endl;
-            fsm->GoToState(stateB);
-        }
-        else if (updateCnt == 15)
-        {
-            cout << "   StateA -> StateC" << endl;
-            updateCnt = 0;
-            fsm->GoToState(stateC);
-        }
-        break;
+      cout << "   StateA -> StateC" << endl;
+      updateCnt = 0;
+      fsm->GoToState(stateC);
     }
-    case EVENTSIGNAL_STOP:
-      fsm->GoToState(stateIdle);
-      break;
-    default:
-      cout << "   StateA Error" << endl;
-        break;
-    }
-    return true;
+    break;
+  }
+  case EVENTSIGNAL_STOP:
+    fsm->GoToState(stateIdle);
+    break;
+  default:
+    cout << "   StateA Error" << endl;
+    break;
+  }
+  return true;
 }
 
 void SpecificFSM::StateA::OnExit()
 {
-    cout << "StateA::OnExit" << endl;
+  cout << "StateA::OnExit" << endl;
 }
 void SpecificFSM::StateA::SetTransistionStates(StateB *stateB, StateC *stateC, StateIdle *stateIdle)
 {
-    this->stateB = stateB;
-    this->stateC = stateC;
-    this->stateIdle = stateIdle;
+  this->stateB = stateB;
+  this->stateC = stateC;
+  this->stateIdle = stateIdle;
 }
 // ================= StateB ================= 
 SpecificFSM::StateB::StateB()
@@ -132,49 +132,49 @@ SpecificFSM::StateB::~StateB()
 
 void SpecificFSM::StateB::OnEntry()
 {
-    cout << "StateB::OnEntry" << endl;
+  cout << "StateB::OnEntry" << endl;
 }
 
 bool SpecificFSM::StateB::Update(FSM *fsm, event_t *event)
 {
-    cout << "StateB::Update" << endl;
-    
-    switch (event->signal)
+  cout << "StateB::Update" << endl;
+
+  switch (event->signal)
+  {
+  case EVENTSIGNAL_TIMEOUT:
+    updateCnt++;
+    if (updateCnt == 5)
     {
-    case EVENTSIGNAL_TIMEOUT:
-        updateCnt++;
-        if (updateCnt == 5)
-        {
-            cout << "   StateB -> StateC" << endl;
-            fsm->GoToState(stateC);        
-        }
-        break;
-    case EVENTSIGNAL_STOP:
-      fsm->GoToState(stateIdle);
-      break;
-    default:
-      cout << "   StateB Error" << endl;
-        break;
+      cout << "   StateB -> StateC" << endl;
+      fsm->GoToState(stateC);
     }
-    return true;
+    break;
+  case EVENTSIGNAL_STOP:
+    fsm->GoToState(stateIdle);
+    break;
+  default:
+    cout << "   StateB Error" << endl;
+    break;
+  }
+  return true;
 }
 
 void SpecificFSM::StateB::OnExit()
 {
-    updateCnt = 0;
-    cout << "StateB::OnExit" << endl;
+  updateCnt = 0;
+  cout << "StateB::OnExit" << endl;
 }
 
 void SpecificFSM::StateB::SetTransistionStates(StateC *stateC, StateIdle *stateIdle)
 {
-    this->stateC = stateC;
-    this->stateIdle = stateIdle;
+  this->stateC = stateC;
+  this->stateIdle = stateIdle;
 }
 
 // ================= StateC ================= 
 SpecificFSM::StateC::StateC()
 {
-    ExitEnable(true);
+  ExitEnable(true);
 }
 
 SpecificFSM::StateC::~StateC()
@@ -183,28 +183,28 @@ SpecificFSM::StateC::~StateC()
 
 bool SpecificFSM::StateC::Update(FSM * fsm, event_t * event)
 {
-    cout << "StateC::Update" << endl;
-    
-    switch (event->signal)
+  cout << "StateC::Update" << endl;
+
+  switch (event->signal)
+  {
+  case EVENTSIGNAL_TIMEOUT:
+  {
+    updateCnt++;
+    if (updateCnt == 5)
     {
-    case EVENTSIGNAL_TIMEOUT:
-    {
-      updateCnt++;
-        if (updateCnt == 5)
-        {
-            cout << "   StateC -> StateA" << endl;
-            fsm->GoToState(stateA);
-        }
+      cout << "   StateC -> StateA" << endl;
+      fsm->GoToState(stateA);
     }
+  }
+  break;
+  case EVENTSIGNAL_STOP:
+    fsm->GoToState(stateIdle);
     break;
-    case EVENTSIGNAL_STOP:
-      fsm->GoToState(stateIdle);
-      break;
-    default:
-      cout << "   StateC Error" << endl;
-        break;
-    }
-    return true;
+  default:
+    cout << "   StateC Error" << endl;
+    break;
+  }
+  return true;
 }
 void SpecificFSM::StateC::OnExit()
 {
@@ -213,8 +213,8 @@ void SpecificFSM::StateC::OnExit()
 }
 void SpecificFSM::StateC::SetTransistionStates(StateA * stateA, StateIdle *stateIdle)
 {
-    this->stateA = stateA;
-    this->stateIdle = stateIdle;
+  this->stateA = stateA;
+  this->stateIdle = stateIdle;
 }
 
 // ================= StateIdle ================= 

@@ -6,8 +6,8 @@ using namespace std;
 
 GenericState::GenericState()
 {
-    EntryEnable(false);
-    ExitEnable(false);
+  EntryEnable(false);
+  ExitEnable(false);
 }
 
 GenericState::~GenericState()
@@ -16,12 +16,12 @@ GenericState::~GenericState()
 
 void GenericState::OnEntry()
 {
-    cout << "GenericState::OnEntry" << endl;
+  cout << "GenericState::OnEntry" << endl;
 }
 
 void GenericState::OnExit()
 {
-    cout << "GenericState::OnExit" << endl;
+  cout << "GenericState::OnExit" << endl;
 }
 
 
