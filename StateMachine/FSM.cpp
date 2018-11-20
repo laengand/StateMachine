@@ -5,13 +5,12 @@
 using namespace std;
 FSM::FSM()
 {
-    eventQueue = new queue<GenericState::event_t>;
+    
 }
-
 
 FSM::~FSM()
 {
-    delete eventQueue;
+    
 }
 
 void FSM::GoToState(GenericState *state)
@@ -25,27 +24,9 @@ void FSM::GoToState(GenericState *state)
     if (currentState->IsEntryEnabled())
         currentState->OnEntry();
 }
-void FSM::Process()
-{
-    if (eventQueue->empty())
-        return;
 
-    GenericState::event_t evt = PeekQueue();
-    if (currentState != NULL)
-      if (currentState->Update(this, &evt))
-      {
-        PopQueue();
-      }
-}
-GenericState::event_t FSM::PeekQueue(void)
+void FSM::Dispatch(GenericState::event_t *event)
 {
-  return eventQueue->front();
+  currentState->Update(this, event);
 }
-void FSM::PopQueue(void)
-{
-  eventQueue->pop();
-}
-void FSM::PostToQueue(GenericState::event_t event)
-{
-    eventQueue->push(event);
-}
+

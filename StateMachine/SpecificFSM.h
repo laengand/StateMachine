@@ -2,8 +2,8 @@
 
 #include <thread>
 #include <mutex>
-#include "FSM.h"
-class SpecificFSM : public FSM
+#include "QueuedFSM.h"
+class SpecificFSM : public QueuedFSM
 {
     static void ThreadFunction(SpecificFSM *specificFSM);
     std::thread *timeoutThread;

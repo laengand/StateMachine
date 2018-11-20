@@ -23,14 +23,14 @@ GenericState::event_t SpecificFSM::PeekQueue(void)
 void SpecificFSM::PopQueue(void)
 {
   mtx.lock();
-  FSM::PopQueue();
+  QueuedFSM::PopQueue();
   mtx.unlock();
 }
 
 void SpecificFSM::PostToQueue(GenericState::event_t event)
 {
   mtx.lock();
-  FSM::PostToQueue(event);
+  QueuedFSM::PostToQueue(event);
   mtx.unlock();
 }
 
