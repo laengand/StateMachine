@@ -94,6 +94,7 @@ bool SpecificFSM::StateA::Update(FSM *fsm, event_t * event)
         else if (updateCnt == 15)
         {
             cout << "   StateA -> StateC" << endl;
+            updateCnt = 0;
             fsm->GoToState(stateC);
         }
         break;
@@ -110,7 +111,6 @@ bool SpecificFSM::StateA::Update(FSM *fsm, event_t * event)
 
 void SpecificFSM::StateA::OnExit()
 {
-    updateCnt = 0;
     cout << "StateA::OnExit" << endl;
 }
 void SpecificFSM::StateA::SetTransistionStates(StateB *stateB, StateC *stateC, StateIdle *stateIdle)

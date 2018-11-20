@@ -18,6 +18,8 @@ void handleInput(bool *stopThread)
     while(!(*stopThread))
     {
         c_input = _getche();
+        if (c_input == '\0')
+          continue;
         input = atoi(&c_input);
         cout << endl;
         if( input >4 )
