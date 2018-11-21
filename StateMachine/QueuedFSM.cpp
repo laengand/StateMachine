@@ -23,7 +23,7 @@ void QueuedFSM::PopQueue(void)
   eventQueue->pop();
 }
 
-void QueuedFSM::PostToQueue(GenericState::event_t event)
+void QueuedFSM::PostQueue(GenericState::event_t event)
 {
   eventQueue->push(event);
 }

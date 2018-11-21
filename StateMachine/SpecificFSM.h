@@ -88,7 +88,7 @@ public:
   ~SpecificFSM();
   GenericState::event_t PeekQueue(void);
   void PopQueue(void);
-  void PostToQueue(GenericState::event_t event);
+  void PostQueue(GenericState::event_t event);
 
 };
 

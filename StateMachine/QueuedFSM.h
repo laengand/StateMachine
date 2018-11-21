@@ -12,6 +12,6 @@ public:
   virtual void Process();
   virtual GenericState::event_t PeekQueue(void);
   virtual void PopQueue(void);
-  virtual void PostToQueue(GenericState::event_t event);
+  virtual void PostQueue(GenericState::event_t event);
 };
 

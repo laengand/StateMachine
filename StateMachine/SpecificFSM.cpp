@@ -11,7 +11,7 @@ void SpecificFSM::ThreadFunction(SpecificFSM *specificFSM)
     Sleep(1000);
     GenericState::event_t event;
     event.signal = SpecificFSM::eventSignal_t::EVENTSIGNAL_TIMEOUT;
-    specificFSM->PostToQueue(event);
+    specificFSM->PostQueue(event);
   }
 }
 
@@ -27,10 +27,10 @@ void SpecificFSM::PopQueue(void)
   mtx.unlock();
 }
 
-void SpecificFSM::PostToQueue(GenericState::event_t event)
+void SpecificFSM::PostQueue(GenericState::event_t event)
 {
   mtx.lock();
-  QueuedFSM::PostToQueue(event);
+  QueuedFSM::PostQueue(event);
   mtx.unlock();
 }
 

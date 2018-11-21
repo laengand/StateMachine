@@ -28,7 +28,7 @@ void handleInput(bool *stopThread)
     {
       GenericState::event_t event;
       event.signal = (SpecificFSM::eventSignal_t)input;
-      specificFSM->PostToQueue(event);
+      specificFSM->PostQueue(event);
     }
   }
 }
