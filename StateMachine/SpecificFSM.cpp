@@ -4,6 +4,7 @@
 #include <Windows.h>
 
 using namespace std;
+using namespace Gadgets;
 void SpecificFSM::ThreadFunction(SpecificFSM *specificFSM)
 {
   while (!specificFSM->IsThreadStopped())

@@ -9,6 +9,7 @@
 #include <conio.h>
 
 using namespace std;
+using namespace Gadgets;
 SpecificFSM *specificFSM;
 bool stopMain = false;
 void handleInput(bool *stopThread)

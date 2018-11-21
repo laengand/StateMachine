@@ -1,12 +1,11 @@
 #include "stdafx.h"
 #include "QueuedFSM.h"
 using namespace std;
-
+using namespace Gadgets;
 QueuedFSM::QueuedFSM()
 {
   eventQueue = new queue<GenericState::event_t>;
 }
-
 
 QueuedFSM::~QueuedFSM()
 {

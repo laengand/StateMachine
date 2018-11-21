@@ -147,7 +147,6 @@
     <ClInclude Include="GenericState.h" />
     <ClInclude Include="QueuedFSM.h" />
     <ClInclude Include="SpecificFSM.h" />
-    <ClInclude Include="SpecificSubFsm.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
@@ -156,7 +155,6 @@
     <ClCompile Include="GenericState.cpp" />
     <ClCompile Include="QueuedFSM.cpp" />
     <ClCompile Include="SpecificFSM.cpp" />
-    <ClCompile Include="SpecificSubFsm.cpp" />
     <ClCompile Include="StateMachine.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

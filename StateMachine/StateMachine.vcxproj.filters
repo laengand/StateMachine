@@ -33,9 +33,6 @@
     <ClInclude Include="QueuedFSM.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="SpecificSubFsm.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -54,9 +51,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="QueuedFSM.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="SpecificSubFsm.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

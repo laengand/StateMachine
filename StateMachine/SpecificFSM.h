@@ -3,7 +3,7 @@
 #include <thread>
 #include <mutex>
 #include "QueuedFSM.h"
-class SpecificFSM : public QueuedFSM
+class SpecificFSM : public Gadgets::QueuedFSM
 {
   static void ThreadFunction(SpecificFSM *specificFSM);
   std::thread *timeoutThread;
@@ -15,7 +15,7 @@ class SpecificFSM : public QueuedFSM
   class StateC;
   class StateIdle;
 
-  class StateA : public GenericState
+  class StateA : public Gadgets::GenericState
   {
     StateB *stateB;
     StateC *stateC;
@@ -30,7 +30,7 @@ class SpecificFSM : public QueuedFSM
     void SetTransistionStates(StateB *stateB, StateC *stateC, StateIdle *stateIdle);
   };
 
-  class StateB : public GenericState
+  class StateB : public Gadgets::GenericState
   {
     StateC *stateC;
     StateIdle *stateIdle;
@@ -43,7 +43,7 @@ class SpecificFSM : public QueuedFSM
     void OnExit();
     void SetTransistionStates(StateC *stateC, StateIdle *stateIdle);
   };
-  class StateC : public GenericState
+  class StateC : public Gadgets::GenericState
   {
     StateA *stateA;
     StateIdle *stateIdle;
@@ -56,7 +56,7 @@ class SpecificFSM : public QueuedFSM
     void SetTransistionStates(StateA *stateA, StateIdle *stateIdle);
   };
 
-  class StateIdle : public GenericState
+  class StateIdle : public Gadgets::GenericState
   {
     StateA *stateA;
     StateB *stateB;
@@ -86,9 +86,9 @@ public:
   }eventSignal_t;
   SpecificFSM();
   ~SpecificFSM();
-  GenericState::event_t PeekQueue(void);
+  Gadgets::GenericState::event_t PeekQueue(void);
   void PopQueue(void);
-  void PostQueue(GenericState::event_t event);
+  void PostQueue(Gadgets::GenericState::event_t event);
 
 };
 
