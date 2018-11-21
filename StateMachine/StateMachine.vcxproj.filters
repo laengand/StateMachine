@@ -15,42 +15,33 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="stdafx.h">
+    <ClInclude Include="Include\FSM.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="targetver.h">
+    <ClInclude Include="Include\GenericState.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GenericState.h">
+    <ClInclude Include="Include\QueuedFSM.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="FSM.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SpecificFSM.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="QueuedFSM.h">
+    <ClInclude Include="Include\SpecificFSM.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="stdafx.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="StateMachine.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GenericState.cpp">
+    <ClCompile Include="Source\FSM.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="FSM.cpp">
+    <ClCompile Include="Source\GenericState.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="SpecificFSM.cpp">
+    <ClCompile Include="Source\QueuedFSM.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="QueuedFSM.cpp">
+    <ClCompile Include="Source\SpecificFSM.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

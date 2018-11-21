@@ -1,6 +1,4 @@
-#include "stdafx.h"
 #include "FSM.h"
-#include <iostream>
 
 using namespace std;
 using namespace Gadgets;

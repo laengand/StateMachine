@@ -1,7 +1,6 @@
-#include "stdafx.h"
 #include <iostream>
-#include "SpecificFSM.h"
 #include <Windows.h>
+#include "SpecificFSM.h"
 
 using namespace std;
 using namespace Gadgets;

@@ -1,5 +1,5 @@
-#include "stdafx.h"
 #include "QueuedFSM.h"
+
 using namespace std;
 using namespace Gadgets;
 QueuedFSM::QueuedFSM()
